@@ -1,10 +1,23 @@
 function promiseAll(promises) {
   // Twój kod tu
-}
+  return new Promise(async (resolve,reject) => {
+    let results = []
+    for (let promise of promises) {
+        results.push(await promise.then(async resolvedData => await resolvedData, reject))
+        resolve(results)
+    }
+})
+};
 
 function promiseRace(promises) {
   // Twój kod tu
-}
+  return new Promise(async (resolve,reject) => {
+    for (let rpromise of promises.map(Promise.resolve, Promise)) {
+      rpromise.then(resolve)
+      .catch(reject)
+  };
+})
+};
 
 
 
